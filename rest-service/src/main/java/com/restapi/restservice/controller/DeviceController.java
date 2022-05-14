@@ -1,22 +1,28 @@
 package com.restapi.restservice.controller;
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/device")
-public class DeviceController {
-	
-	private static final String template = "Ok%s";
-	private final AtomicLong counter = new AtomicLong();
+import com.restapi.restservice.dao.DeviceDaoImpl;
+import com.restapi.restservice.entity.Device;
 
+@RestController
+@RequestMapping("/devices")
+public class DeviceController {
+
+	@Autowired
+	private DeviceDaoImpl deviceDaoImpl;
 	
-//	@GetMapping("/device")
-//	public ExampleEndpoint device(@RequestParam(value = "name", defaultValue = "!") String name) {
-//		return new ExampleEndpoint(counter.incrementAndGet(), String.format(template, name));
-//	}
+	// add mapping to get /devices
+	@GetMapping
+	public List<Device> getDevices() {
+		
+		return deviceDaoImpl.getDevices(); 
+	}
+	
+	
 }
