@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.restapi.restservice.entity.Device;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/testing")
 public class DeviceRestController {
 
 	private List <Device> theDevices;
@@ -24,7 +24,7 @@ public class DeviceRestController {
 		
 		theDevices = new ArrayList<>();
 		
-		theDevices.add(new Device("1","1","1","1","1"));
+		theDevices.add(new Device(1,"1","1","1","1"));
 	}
 	
 	

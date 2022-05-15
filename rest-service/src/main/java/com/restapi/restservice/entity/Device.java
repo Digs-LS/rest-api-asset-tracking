@@ -2,6 +2,8 @@ package com.restapi.restservice.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,8 +12,9 @@ import javax.persistence.Table;
 public class Device {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="imei")
-	private String imei;
+	private int imei;
 	
 	@Column(name="gps_location")
 	private String gpsLocation;
@@ -25,9 +28,11 @@ public class Device {
 	@Column(name="battery_level")
 	private String batteryLevel;
 	
-	
-	
-	public Device(String imei, String gpsLocation, String accelerometerData, String temperature, String batteryLevel) {
+	public Device() {
+		
+	}
+
+	public Device(int imei, String gpsLocation, String accelerometerData, String temperature, String batteryLevel) {
 		super();
 		this.imei = imei;
 		this.gpsLocation = gpsLocation;
@@ -44,11 +49,11 @@ public class Device {
 		this.batteryLevel = batteryLevel;
 	}
 	
-	public String getImei() {
+	public int getImei() {
 		return imei;
 	}
 	
-	public void setImei(String imei) {
+	public void setImei(int imei) {
 		this.imei = imei;
 	}
 	
