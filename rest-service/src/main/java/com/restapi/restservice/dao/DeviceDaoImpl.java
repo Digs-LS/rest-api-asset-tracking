@@ -55,5 +55,16 @@ public class DeviceDaoImpl implements DeviceDao{
 		
 		theQuery.executeUpdate();
 	}
+
+	@Override
+	public Device getDevice(int theImei) {
+		
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		// retrieve/read from database using the priamry key
+		Device theDevice = currentSession.get(Device.class, theImei);
+		
+		return theDevice;
+	}
 	
 }
