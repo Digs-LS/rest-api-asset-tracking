@@ -10,7 +10,7 @@ public interface DeviceService {
 
 	public void saveDevice(Device theDevice);
 	
-	public Device getDevice(int theImei);
+	public Device getDevice(int theId);
 
-	public void deleteDevice(int theImei);
+	public void deleteDevice(int theId);
 }

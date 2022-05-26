@@ -1,4 +1,4 @@
-package com.restapi.restservice.config;                                                           
+ package com.restapi.restservice.config;                                                           
                                                                                                   
 import java.beans.PropertyVetoException;                                                          
 import java.util.Properties;                                                                      
@@ -24,17 +24,15 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @EnableWebMvc                                                                                     
 @EnableTransactionManagement                                                                      
 @ComponentScan("com")                                                         
-@PropertySource({ "classpath:persistence-mysql.properties" })                                     
+@PropertySource({ "classpath:application.properties" })                                     
 public class RestServiceConfig implements WebMvcConfigurer {                                          
                                                                                                   
 	@Autowired                                                                                    
 	private Environment env;                                                                      
 	                                                                                              
-	private Logger logger = Logger.getLogger(getClass().getName());                               
-	                                                                                              
-	// define a bean for ViewResolver                                                             
-                                                                                                  
-	@Bean                                                                                         
+	private Logger logger = Logger.getLogger(getClass().getName());                    
+	                                   
+    @Bean                                                                                         
 	public DataSource myDataSource() {                                                            
 		                                                                                          
 		// create connection pool                                                                 
@@ -42,20 +40,20 @@ public class RestServiceConfig implements WebMvcConfigurer {
                                                                                                   
 		// set the jdbc driver                                                                    
 		try {                                                                                     
-			myDataSource.setDriverClass("com.mysql.jdbc.Driver");		                          
+			myDataSource.setDriverClass("com.mysql.cj.jdbc.Driver");		                          
 		}                                                                                         
 		catch (PropertyVetoException exc) {                                                       
 			throw new RuntimeException(exc);                                                      
 		}                                                                                         
 		                                                                                          
 		// for sanity's sake, let's log url and user ... just to make sure we are reading the data
-		logger.info("jdbc.url=" + env.getProperty("jdbc.url"));                                   
-		logger.info("jdbc.user=" + env.getProperty("jdbc.user"));                                 
+		logger.info("spring.datasource.url=" + env.getProperty("spring.datasource.url"));                                   
+		logger.info("spring.datasource.username" + env.getProperty("spring.datasource.username"));                                 
 		                                                                                          
 		// set database connection props                                                          
-		myDataSource.setJdbcUrl(env.getProperty("jdbc.url"));                                     
-		myDataSource.setUser(env.getProperty("jdbc.user"));                                       
-		myDataSource.setPassword(env.getProperty("jdbc.password"));                               
+		myDataSource.setJdbcUrl(env.getProperty("spring.datasource.url"));                                     
+		myDataSource.setUser(env.getProperty("spring.datasource.username"));                                       
+		myDataSource.setPassword(env.getProperty("spring.datasource.password"));                               
 		                                                                                          
 		// set connection pool props                                                              
 		myDataSource.setInitialPoolSize(getIntProperty("connection.pool.initialPoolSize"));       
@@ -71,8 +69,8 @@ public class RestServiceConfig implements WebMvcConfigurer {
 		// set hibernate properties                                                               
 		Properties props = new Properties();                                                      
                                                                                                   
-		props.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));             
-		props.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));           
+		props.setProperty("spring.jpa.database-platform", env.getProperty("spring.jpa.database-platform"));             
+		props.setProperty("spring.jpa.properties.hibernate.show_sql", env.getProperty("spring.jpa.properties.hibernate.show_sql"));           
 		                                                                                          
 		return props;				                                                              
 	}                                                                                             
@@ -98,8 +96,8 @@ public class RestServiceConfig implements WebMvcConfigurer {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();                   
 		                                                                                          
 		// set the properties                                                                     
-		sessionFactory.setDataSource(myDataSource());                                             
-		sessionFactory.setPackagesToScan(env.getProperty("hibernate.packagesToScan"));            
+		sessionFactory.setDataSource(myDataSource());
+		sessionFactory.setPackagesToScan(env.getProperty("hibernate.packagesToScan"));
 		sessionFactory.setHibernateProperties(getHibernateProperties());                          
 		                                                                                          
 		return sessionFactory;                                                                    

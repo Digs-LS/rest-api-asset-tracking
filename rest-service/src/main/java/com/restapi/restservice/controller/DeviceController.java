@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restapi.restservice.DeviceNotFoundException;
 import com.restapi.restservice.entity.Device;
 import com.restapi.restservice.service.DeviceService;
 
@@ -29,12 +30,26 @@ public class DeviceController {
 		return deviceService.getDevices();
 	}
 	
+	// add mapping for GET /device/{deviceId}
+	
+	@GetMapping("/devices/{deviceId}")
+	public Device getDevice(@PathVariable int deviceId) {
+	
+		Device theDevice = deviceService.getDevice(deviceId);
+		
+		if (theDevice == null) {
+			throw new DeviceNotFoundException("Device id not found - " + deviceId);
+		}
+		
+		return theDevice;
+	}
+	
 	// add mapping for POST /devices - add new device
 	@PostMapping("/devices")
 	public Device addDevice(@RequestBody Device theDevice) {
 			
 		// set Id (imei) to 0 so the device is created instead of updated
-		theDevice.setImei(0);
+		theDevice.setId(0);
 				
 		deviceService.saveDevice(theDevice);
 		
@@ -51,18 +66,18 @@ public class DeviceController {
 	}
 	
 	// add mapping for DELETE /devices - delete existing device
-	@DeleteMapping("/devices/{deviceImei}")
-	public String deleteDevice(@PathVariable int deviceImei) {
+	@DeleteMapping("/devices/{deviceId}")
+	public String deleteDevice(@PathVariable int deviceId) {
 		
-		Device tempDevice = deviceService.getDevice(deviceImei);
+		Device tempDevice = deviceService.getDevice(deviceId);
 		
 		// throw exception if null
 		if (tempDevice == null) {
-			return "Device not found with imei =" + tempDevice.getImei();
+			throw new DeviceNotFoundException("Device id not found - " + deviceId);
 		}
 		
-		deviceService.deleteDevice(deviceImei);
+		deviceService.deleteDevice(deviceId);
 		
-		return "Deleted device with Imei = " + deviceImei;
+		return "Deleted device with id = " + deviceId;
 	}
 }

@@ -44,25 +44,25 @@ public class DeviceDaoImpl implements DeviceDao{
 	}
 
 	@Override
-	public void deleteDevice(int theImei) {
+	public void deleteDevice(int theId) {
 		
 		// get current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
 		
 		// delete object by using primary key
-		Query theQuery = currentSession.createQuery("delete from Device where imei=:deviceImei");
-		theQuery.setParameter("deviceImei", theImei);
+		Query theQuery = currentSession.createQuery("delete from Device where id=:deviceId");
+		theQuery.setParameter("deviceId", theId);
 		
 		theQuery.executeUpdate();
 	}
 
 	@Override
-	public Device getDevice(int theImei) {
+	public Device getDevice(int theId) {
 		
 		Session currentSession = sessionFactory.getCurrentSession();
 		
 		// retrieve/read from database using the priamry key
-		Device theDevice = currentSession.get(Device.class, theImei);
+		Device theDevice = currentSession.get(Device.class, theId);
 		
 		return theDevice;
 	}

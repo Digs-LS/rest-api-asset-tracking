@@ -30,14 +30,14 @@ public class DeviceServiceImpl implements DeviceService{
 
 	@Override
 	@Transactional
-	public void deleteDevice(int theImei) {
-		deviceDao.deleteDevice(theImei);
+	public void deleteDevice(int theId) {
+		deviceDao.deleteDevice(theId);
 	}
 
 	@Override
 	@Transactional
-	public Device getDevice(int theImei) {
-		return deviceDao.getDevice(theImei);
+	public Device getDevice(int theId) {
+		return deviceDao.getDevice(theId);
 	}
 
 }

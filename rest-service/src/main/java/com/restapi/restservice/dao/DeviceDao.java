@@ -8,6 +8,6 @@ public interface DeviceDao {
 	
 	public List<Device> getDevices();
 	public void saveDevice(Device theDevice);
-	public Device getDevice(int theImei);
-	public void deleteDevice(int theImei);
+	public Device getDevice(int theId);
+	public void deleteDevice(int theId);
 }
