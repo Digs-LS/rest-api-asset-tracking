@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.restapi.restservice.DeviceNotFoundException;
+import com.restapi.restservice.entity.Client;
 import com.restapi.restservice.entity.Device;
 import com.restapi.restservice.service.DeviceService;
 
@@ -50,7 +51,7 @@ public class DeviceController {
 			
 		// set Id (imei) to 0 so the device is created instead of updated
 		theDevice.setId(0);
-				
+		
 		deviceService.saveDevice(theDevice);
 		
 		return theDevice;

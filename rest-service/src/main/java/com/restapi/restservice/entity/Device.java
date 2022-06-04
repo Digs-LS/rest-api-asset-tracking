@@ -1,44 +1,50 @@
 package com.restapi.restservice.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "device")
 public class Device {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private int id;
-	
-	@Column(name="imei")
+
+	@Column(name = "imei")
 	private String imei;
-	
-	@Column(name="gps_location")
+
+	@Column(name = "gps_location")
 	private String gpsLocation;
-	
-	@Column(name="accelerometer_data")
+
+	@Column(name = "accelerometer_data")
 	private String accelerometerData;
-	
-	@Column(name="temperature")
+
+	@Column(name = "temperature")
 	private String temperature;
-	
-	@Column(name="battery_level")
+
+	@Column(name = "battery_level")
 	private String batteryLevel;
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+			CascadeType.REFRESH })
+	@JoinColumn(name = "client_id")
+	private Client client;
 	
-	public Device() {
-		
+	Device() {
+
 	}
 
-	public Device(int id, String imei, String gpsLocation, String accelerometerData, String temperature,
-			String batteryLevel) {
+	public Device(String imei, String gpsLocation, String accelerometerData, String temperature, String batteryLevel) {
 		super();
-		this.id = id;
 		this.imei = imei;
 		this.gpsLocation = gpsLocation;
 		this.accelerometerData = accelerometerData;
@@ -92,6 +98,15 @@ public class Device {
 
 	public void setBatteryLevel(String batteryLevel) {
 		this.batteryLevel = batteryLevel;
+	}
+
+	// check this out	
+	public int getClientId() {
+		return this.client.getId();
+	}
+	
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 	@Override

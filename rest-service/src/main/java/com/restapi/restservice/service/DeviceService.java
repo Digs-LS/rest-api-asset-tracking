@@ -9,7 +9,7 @@ public interface DeviceService {
 	public List<Device> getDevices();
 
 	public void saveDevice(Device theDevice);
-	
+
 	public Device getDevice(int theId);
 
 	public void deleteDevice(int theId);

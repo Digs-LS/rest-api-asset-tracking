@@ -10,12 +10,12 @@ import com.restapi.restservice.dao.DeviceDao;
 import com.restapi.restservice.entity.Device;
 
 @Service
-public class DeviceServiceImpl implements DeviceService{
+public class DeviceServiceImpl implements DeviceService {
 
 	// inject device DAO
 	@Autowired
 	private DeviceDao deviceDao;
-	
+
 	@Override
 	@Transactional
 	public List<Device> getDevices() {

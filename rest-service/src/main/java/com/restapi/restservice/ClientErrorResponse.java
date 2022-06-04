@@ -1,16 +1,16 @@
 package com.restapi.restservice;
 
-public class DeviceErrorResponse {
+public class ClientErrorResponse {
 
 	private int status;
 	private String message;
 	private long timeStamp;
 
-	public DeviceErrorResponse() {
+	public ClientErrorResponse() {
 
 	}
 
-	public DeviceErrorResponse(int status, String message, long timeStamp) {
+	public ClientErrorResponse(int status, String message, long timeStamp) {
 		super();
 		this.status = status;
 		this.message = message;
@@ -40,5 +40,4 @@ public class DeviceErrorResponse {
 	public void setTimeStamp(long timeStamp) {
 		this.timeStamp = timeStamp;
 	}
-
 }
