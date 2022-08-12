@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.restapi.restservice.DeviceNotFoundException;
-import com.restapi.restservice.entity.Client;
+import com.restapi.restservice.dto.DeviceDto;
 import com.restapi.restservice.entity.Device;
 import com.restapi.restservice.service.DeviceService;
 
@@ -47,7 +47,7 @@ public class DeviceController {
 	
 	// add mapping for POST /devices - add new device
 	@PostMapping("/devices")
-	public Device addDevice(@RequestBody Device theDevice) {
+	public DeviceDto addDevice(@RequestBody DeviceDto theDevice) {
 			
 		// set Id (imei) to 0 so the device is created instead of updated
 		theDevice.setId(0);
@@ -59,7 +59,7 @@ public class DeviceController {
 	
 	// add mapping for PUT /devices - update existing device
 	@PutMapping("/devices")
-	public Device updateDevice(@RequestBody Device theDevice) {
+	public DeviceDto updateDevice(@RequestBody DeviceDto theDevice) {
 		
 		deviceService.saveDevice(theDevice);
 		

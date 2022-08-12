@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.restapi.restservice.dao.DeviceDao;
+import com.restapi.restservice.dto.DeviceDto;
 import com.restapi.restservice.entity.Device;
 
 @Service
@@ -24,8 +25,14 @@ public class DeviceServiceImpl implements DeviceService {
 
 	@Override
 	@Transactional
-	public void saveDevice(Device theDevice) {
-		deviceDao.saveDevice(theDevice);
+	public void saveDevice(DeviceDto theDevice) {
+		deviceDao.saveDevice(toEntity(theDevice));
+	}
+
+	private Device toEntity(DeviceDto theDevice) {
+		Device deviceEntity = new Device();
+		
+		return deviceEntity;
 	}
 
 	@Override

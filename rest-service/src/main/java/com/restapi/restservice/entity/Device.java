@@ -39,7 +39,7 @@ public class Device {
 	@JoinColumn(name = "client_id")
 	private Client client;
 	
-	Device() {
+	public Device() {
 
 	}
 
