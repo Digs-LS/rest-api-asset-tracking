@@ -31,7 +31,14 @@ public class DeviceServiceImpl implements DeviceService {
 
 	private Device toEntity(DeviceDto theDevice) {
 		Device deviceEntity = new Device();
-		
+
+		deviceEntity.setImei(theDevice.getImei());
+		deviceEntity.setGpsLocation(theDevice.getGpsLocation());
+		deviceEntity.setAccelerometerData(theDevice.getAccelerometerData());
+		deviceEntity.setTemperature(theDevice.getTemperature());
+		deviceEntity.setBatteryLevel(theDevice.getBatteryLevel());
+		deviceEntity.setClient(theDevice.getClient());
+
 		return deviceEntity;
 	}
 
